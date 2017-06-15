@@ -7,6 +7,10 @@ require 'fileutils'
 OOB_URI             = 'urn:ietf:wg:oauth:2.0:oob'
 APPLICATION_NAME    = 'Google Calendar API Ruby Quickstart'
 CLIENT_SECRETS_PATH = 'other_client_secret.json'
+
+
+# Path where  'credentials/calendar-ruby-quickstart.yaml'
+# will be created
 CREDENTIALS_PATH    = File.join(
     Dir.pwd, '.credentials',
     "calendar-ruby-quickstart.yaml"
@@ -25,8 +29,13 @@ def authorize
   client_id   = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
   token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
   authorizer  = Google::Auth::UserAuthorizer.new(
-      client_id, SCOPE, token_store
+      client_id,
+      SCOPE,
+      token_store
   )
+  #var @user_id
+  # This field is used in creation of bunch of tokens which
+  # are stored in credentials/calendar-ruby-quickstart.yaml
   user_id     = 'user_1'
   credentials = authorizer.get_credentials(user_id)
   if credentials.nil?
@@ -49,6 +58,8 @@ service = Google::Apis::CalendarV3::CalendarService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
+service.list_events.
+
 # Fetch the next 10 events for the user
 calendar_id = 'primary'
 response = service.list_events(calendar_id,
@@ -59,6 +70,7 @@ response = service.list_events(calendar_id,
 
 puts "Upcoming events:"
 puts "No upcoming events found" if response.items.empty?
+
 response.items.each do |event|
   start = event.start.date || event.start.date_time
   puts "- #{event.summary} (#{start})"
