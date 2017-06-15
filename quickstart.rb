@@ -27,7 +27,7 @@ def authorize
   authorizer  = Google::Auth::UserAuthorizer.new(
       client_id, SCOPE, token_store
   )
-  user_id     = 'default'
+  user_id     = 'user_1'
   credentials = authorizer.get_credentials(user_id)
   if credentials.nil?
     url = authorizer.get_authorization_url(
