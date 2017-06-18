@@ -2,6 +2,8 @@ require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 require 'json'
 require 'sinatra'
+require 'sinatra/json'
+require 'pry'
 
 enable :sessions
 set :session_secret, 'setme'
@@ -15,13 +17,15 @@ get '/' do
   calendar = Google::Apis::CalendarV3::CalendarService.new
   calendar.authorization = auth_client
   calendar_id = 'primary'
-  files_1 = calendar.get_calendar(calendar_id)
-  files   = calendar.list_events(calendar_id,
+  files = calendar.list_events(calendar_id,
                                max_results: 10,
                                single_events: true,
                                order_by: 'startTime',
                                time_min: Time.now.iso8601)
-  "<pre>#{JSON.pretty_generate(files_1.to_h)}</pre>"
+  data = form_data files
+
+  "<pre>#{JSON.pretty_generate(data)}</pre>"
+  #json data
 end
 
 get '/oauth2callback' do
@@ -40,5 +44,17 @@ get '/oauth2callback' do
     session[:credentials] = auth_client.to_json
     redirect to('/')
   end
+
+
+end
+
+
+def form_data calendar
+  data = []
+  calendar.items.each do |event|
+    data << { start_date: event.start.date || event.start.date_time,
+              summary: event.summary }
+  end
+  data
 end
 

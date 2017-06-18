@@ -2,3 +2,4 @@
 /.idea
 .idea/fileTemplates/
 .idea/inspectionProfiles/
+!web_client_secret.json
