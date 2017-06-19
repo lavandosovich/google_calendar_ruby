@@ -3,8 +3,8 @@
 **UNDER CONSTRUCTION**
 
 ##### Run command
-`bundle install`
 
-`ruby sinatra.rb`
+`docker-compose -f ruby-compose.yml`
+
 
 [New events doc](https://developers.google.com/google-apps/calendar/v3/reference/events/insert#examples)
