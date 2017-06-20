@@ -2,8 +2,8 @@ require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 require 'json'
 require 'sinatra'
-require 'sinatra/json'
 require 'pry'
+require 'sinatra/json'
 
 enable :sessions
 set :session_secret, 'setme'
