@@ -5,4 +5,4 @@ sinatra:
   volumes:
     - ./:/app
   working_dir: /app
-  command: bash -c "bundle install && ruby sinatra.rb"
+  command: bash -c "bundle install && shotgun -p 4567"

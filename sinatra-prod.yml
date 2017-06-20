@@ -1,0 +1,8 @@
+sinatra:
+  image: ruby:latest
+  ports:
+    - "8001:4567"
+  volumes:
+    - ./:/app
+  working_dir: /app
+  command: bash -c "bundle install && puma -p 4567"
