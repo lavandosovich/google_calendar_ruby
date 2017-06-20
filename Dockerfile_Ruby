@@ -1,0 +1,7 @@
+FROM ruby:2.4
+
+RUN bundle config --global frozen 1
+
+
+
+EXPOSE "4567"
