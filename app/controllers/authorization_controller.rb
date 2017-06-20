@@ -10,7 +10,6 @@ class AuthorizationsController < ApplicationController
   end
 
   get '/oauth2callback' do
-    #binding.pry
     client_secrets = Google::APIClient::ClientSecrets.load 'client_secret.json'
     auth_client = client_secrets.to_authorization
     auth_client.update!(
@@ -24,7 +23,6 @@ class AuthorizationsController < ApplicationController
       auth_client.fetch_access_token!
       auth_client.client_secret = nil
       session[:credentials] = auth_client.to_json
-      binding.pry
       redirect to('/reservations')
     end
   end
